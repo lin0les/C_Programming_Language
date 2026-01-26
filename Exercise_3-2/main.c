@@ -10,13 +10,15 @@ int main(int argc, char *argv[])
 {
     int i = 0;
     char c;
-    char s[16];
-    char t[32];
+    char s[50];
+    char t[100];
 
     while((c = getchar()) != EOF)
     {
         s[i++] = c;
     }
+
+    s[i] = '\0';
 
     escape(s, t);
 
@@ -43,6 +45,7 @@ void escape(char *s, char *t)
                 *(t + j++) = *(s + i); 
                 break;
         }
+        *(t + j) = '\0';
     }
 
     printf("S: %s\t\tT: %s\n", s, t);
