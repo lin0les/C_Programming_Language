@@ -5,23 +5,24 @@ Exercise 3-2. Write a function escape(s,t) that converts characters like newline
 #include <stdio.h>
 
 void escape(char *s, char *t);
+void unescape(char *s, char *t);
 
 int main(int argc, char *argv[])
 {
     int i = 0;
     char c;
-    char s[50];
+    char s[100];
     char t[100];
 
     while((c = getchar()) != EOF)
     {
         s[i++] = c;
     }
-
+    
     s[i] = '\0';
-
-    escape(s, t);
-
+    printf("%s\n", s);
+    // escape(s, t);
+    unescape(s, t);
     return 0;
 }
 
@@ -45,8 +46,41 @@ void escape(char *s, char *t)
                 *(t + j++) = *(s + i); 
                 break;
         }
-        *(t + j) = '\0';
     }
+    *(t + j) = '\0';
 
-    printf("S: %s\t\tT: %s\n", s, t);
+    printf("\n\nS:\n%s\n\nT:\n%s\n", s, t);
+}
+
+void unescape(char *s, char *t)
+{
+    int i, j;
+    i = j = 0;
+
+    while(*(s + i) != '\0')
+    {
+        if(*(s + i) == '\\')
+        {   
+            switch(*(s + ++i))
+            {
+                case 't':
+                    *(t + j++) = '\t';
+                    break;
+                case 'n':
+                    *(t + j++) = '\n';
+                    break;
+                default:
+                    *(t + j++) = '\\';
+                    *(t + j++) = *(s + i);
+                    break;
+            }
+        }
+        else
+        {
+            *(t + j++) = *(s + i);
+        }
+        ++i;
+    }
+    *(t + j) = '\0';
+    printf("\n\nS:\n%s\n\nT:\n%s\n", s, t);
 }
