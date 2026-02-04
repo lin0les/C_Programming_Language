@@ -1,5 +1,5 @@
 /*
-Exercise 3-4. In a two’s complement number representation, our version of itoa does not handle the largest negative number, that is, the value of n equal to −(2wordsize−1). Explain why not. Modify it to print that value correctly, regardless of the machine on which it runs.
+Exercise 3-6. Write a version of itoa that accepts three arguments instead of two. The third argument is a minimum field width; the converted number must be padded with blanks on the left if necessary to make it wide enough.
 */
 
 #include <stdio.h>
@@ -7,13 +7,14 @@ Exercise 3-4. In a two’s complement number representation, our version of itoa
 #include <string.h>
 
 void reverse(char s[]);
-void itoa(int n, char s[]);
+void itoa(int n, char s[], int w);
 
 int main(int argc, char *argv[])
 {
+    int w = 15;
     int n = -2147483648;
     char s[100];
-    itoa(n, s);
+    itoa(n, s, w);
     printf("%s\n", s);
 
     return 0;
@@ -29,7 +30,7 @@ void reverse(char s[])
     }
 }
 
-void itoa(int n, char s[])
+void itoa(int n, char s[], int w)
 {
     int sign = n;
     int i = 0;
@@ -43,6 +44,11 @@ void itoa(int n, char s[])
     if(sign < 0)
     {
         s[i++] = '-';
+    }
+
+    while(i < w)
+    {
+        s[i++] = ' ';
     }
     
     s[i] = '\0';
