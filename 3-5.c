@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
     int x = 32414;
     char s[15];
-    int b = 16;
+    int b = 8;
     itob(x, s, b);
     printf("The number %d in base %d is %s\n", x, b, s);
     
